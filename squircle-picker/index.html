@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Co-op Contentful Extension - Hero backgrounds colours</title>
+    <link
+      rel="stylesheet"
+      href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css"
+    />
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style>
+      .bg-picker-body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .bg-picker * {
+        box-sizing: border-box;
+      }
+
+      .bg-picker a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .bg-picker .ce-colorpalette {
+        padding-top: 16px;
+      }
+
+      .bg-picker .ce-colorpalette__palette {
+        display: flex;
+      }
+
+      .bg-picker .ce-colorpalette__color {
+        width: 23%;
+        margin: 0 1% 16px 1%;
+        padding: 16px 12px;
+        cursor: pointer;
+        border: 4px solid white;
+        height: 104px;
+        font-size: 13px;
+        line-height: 16px;
+      }
+
+      .bg-picker .ce-colorpalette__color span {
+        display: block;
+        font-weight: bold;
+        pointer-events: none;
+      }
+
+      .bg-picker .ce-colorpalette__color span + span {
+        margin-top: 8px;
+      }
+
+      .bg-picker .ce-colorpalette__color.active {
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      /* match contentful styles */
+
+      .radio-editor__options {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .bg-picker .radio-editor__option {
+        cursor: pointer;
+        display: block;
+        line-height: 1.5em;
+        margin: 0.375em 1em 0.375em 0;
+        width: auto !important;
+        padding: 0 !important;
+      }
+    </style>
+  </head>
+
+  <body class="bg-picker-body">
+    <div id="app">
+      <div class="bg-picker">
+        <div class="radio-editor__options">
+          <label class="radio-editor__option">
+            <input
+              type="radio"
+              v-model="showBackgrounds"
+              :value="true"
+              class="radio-editor__input"
+            />
+            <span class="radio-editor__label">
+              Yes
+            </span>
+          </label>
+          <label class="radio-editor__option">
+            <input
+              type="radio"
+              v-model="showBackgrounds"
+              :value="false"
+              class="radio-editor__input"
+            />
+            <span class="radio-editor__label">
+              No
+            </span>
+          </label>
+        </div>
+        <template v-if="showBackgrounds">
+          <div class="cf-form-field ce-colorpalette">
+            <h3>Colour Backgrounds</h3>
+            <div
+              class="ce-colorpalette__palette"
+              v-for="bg in colorBackgrounds"
+            >
+              <template v-for="variant in bg.variants">
+                <a
+                  href="#"
+                  class="ce-colorpalette__color"
+                  @click.prevent="setBackground(variant)"
+                  :class="[variant.id, { active : isActive(variant.id) }]"
+                  :style="{ backgroundColor: variant.background, color: variant.text }"
+                  :key="variant.id"
+                >
+                  <span>{{ bg.name }} - {{ variant.name }}</span>
+                  <span>Background: {{ variant.background }}</span>
+                  <span>Text: {{ variant.text }}</span>
+                </a>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      window.contentfulExtension.init(function(api) {
+        api.window.startAutoResizer();
+        new Vue({
+          el: '#app',
+          data: function() {
+            return {
+              showBackgrounds: false,
+              currentSelection: null,
+              backgrounds: [
+                {
+                  id: 'set-1',
+                  name: 'Set 1',
+                  type: 'color',
+                  variants: [
+                    {
+                      id: 'color-1',
+                      name: 'Neutral (Light)',
+                      type: 'color',
+                      background: '#F5F5F0',
+                      text: '#282828'
+                    }
+                  ]
+                },
+                {
+                  id: 'set-2',
+                  name: 'Set 2',
+                  type: 'color',
+                  variants: [
+                    {
+                      id: 'color-2',
+                      name: 'Primary',
+                      type: 'color',
+                      background: '#44D7B6',
+                      text: '#282828'
+                    },
+                    {
+                      id: 'color-2a',
+                      name: 'Seconday',
+                      type: 'color',
+                      background: '#0E817F',
+                      text: '#FFFFFF'
+                    },
+                    {
+                      id: 'color-2b',
+                      name: 'Tint',
+                      type: 'color',
+                      background: '#E9FFFA',
+                      text: '#282828'
+                    }
+                  ]
+                },
+                {
+                  id: 'set-3',
+                  name: 'Set 3',
+                  type: 'color',
+                  variants: [
+                    {
+                      id: 'color-3',
+                      name: 'Primary',
+                      type: 'color',
+                      background: '#F7D002',
+                      text: '#282828'
+                    },
+                    {
+                      id: 'color-3a',
+                      name: 'Seconday',
+                      type: 'color',
+                      background: '#496005',
+                      text: '#FFFFFF'
+                    },
+                    {
+                      id: 'color-3b',
+                      name: 'Tint',
+                      type: 'color',
+                      background: '#FFFCEE',
+                      text: '#282828'
+                    }
+                  ]
+                },
+                {
+                  id: 'set-4',
+                  name: 'Set 4',
+                  type: 'color',
+                  variants: [
+                    {
+                      id: 'color-4',
+                      name: 'Primary',
+                      type: 'color',
+                      background: '#FF9D34',
+                      text: '#282828'
+                    },
+                    {
+                      id: 'color-4a',
+                      name: 'Seconday',
+                      type: 'color',
+                      background: '#8B2400',
+                      text: '#FFFFFF'
+                    },
+                    {
+                      id: 'color-4b',
+                      name: 'Tint',
+                      type: 'color',
+                      background: '#FFF2E5',
+                      text: '#282828'
+                    }
+                  ]
+                },
+                {
+                  id: 'squircle-single',
+                  name: 'Squircle',
+                  type: 'pattern',
+                  variants: [
+                    {
+                      id: 'squircle-single-0',
+                      name: 'Neutral (Top)',
+                      type: 'squircle-single'
+                    }
+                  ]
+                },
+                {
+                  id: 'squircle-multiple',
+                  name: 'Squircles',
+                  type: 'pattern',
+                  variants: [
+                    {
+                      id: 'squircle-multiple-0',
+                      name: "It's what we do",
+                      type: 'squircle-multiple'
+                    }
+                  ]
+                },
+                {
+                  id: 'dots',
+                  name: 'Dots',
+                  type: 'pattern',
+                  variants: [
+                    {
+                      id: 'dots-0',
+                      name: 'Neutral',
+                      type: 'dots'
+                    }
+                  ]
+                },
+                {
+                  id: 'set-5',
+                  name: 'Set 5',
+                  type: 'color',
+                  variants: [
+                    {
+                      id: 'color-5',
+                      name: 'Health',
+                      type: 'color',
+                      background: '#274E97',
+                      text: '#FFFFFF'
+                    }
+                  ]
+                }   
+              ]
+            };
+          },
+          computed: {
+            colorBackgrounds: function() {
+              return this.backgrounds.filter(bg => {
+                return bg.type === 'color';
+              });
+            }
+          },
+          methods: {
+            setBackground: function(obj) {
+              let selected = null;
+              if (obj && obj.id && obj.id !== this.currentSelection) {
+                api.field.setValue(obj);
+                selected = obj.id;
+              } else {
+                api.field.setValue(null);
+              }
+              this.currentSelection = selected;
+            },
+            isActive: function(id) {
+              return this.currentSelection && this.currentSelection === id;
+            }
+          },
+          mounted: function() {
+            const current = api.field.getValue();
+            if (current && current.id) {
+              this.currentSelection = current.id;
+              this.showBackgrounds = true;
+            }
+          },
+          watch: {
+            showBackgrounds: function(newVal, oldVal) {
+              if (newVal === false) {
+                this.setBackground(null);
+              }
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

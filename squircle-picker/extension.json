@@ -1,6 +1,6 @@
 {
     "id": "squircle-picker",
     "name": "Squircle Picker",
-    "srcdoc": "./app.html",
+    "srcdoc": "./index.html",
     "fieldTypes": ["Object"]
   }

@@ -2,5 +2,5 @@
     "id": "hero-colour-picker",
     "name": "Hero Colour Picker",
     "srcdoc": "./index.html",
-    "fieldTypes": ["Object"]
+    "fieldTypes": ["Symbol"]
   }

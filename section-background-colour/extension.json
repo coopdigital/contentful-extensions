@@ -1,0 +1,6 @@
+{
+    "id": "section-background-picker",
+    "name": "Section Background Picker",
+    "srcdoc": "./index.html",
+    "fieldTypes": ["Object"]
+  }

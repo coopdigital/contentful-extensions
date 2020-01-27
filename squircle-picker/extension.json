@@ -2,5 +2,5 @@
     "id": "squircle-picker",
     "name": "Squircle Picker",
     "srcdoc": "./index.html",
-    "fieldTypes": ["Object"]
+    "fieldTypes": ["Symbol"]
   }

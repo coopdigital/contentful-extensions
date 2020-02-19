@@ -1,0 +1,6 @@
+{
+    "id": "standard-promo-colour-picker",
+    "name": "Standard Promo Colour Picker",
+    "srcdoc": "./index.html",
+    "fieldTypes": ["Object"]
+  }

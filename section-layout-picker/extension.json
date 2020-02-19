@@ -1,0 +1,6 @@
+{
+    "id": "section-layout-picker",
+    "name": "Section Layout Picker",
+    "srcdoc": "./index.html",
+    "fieldTypes": ["Symbol"]
+  }

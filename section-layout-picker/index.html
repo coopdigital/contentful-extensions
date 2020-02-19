@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Co-op Contentful Extension - Theme colour</title>
+		<link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+		<script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+		<style >
+				.ce-layout {
+					display: flex;
+					justify-content: flex-start;
+					flex-wrap: wrap;
+					padding: var(--spacing-base) var(--spacing-base--1-2);
+					padding: 2rem 1rem;
+				}
+
+				.ce-layout__item {
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: contain;
+					position: relative;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-size: 14px;
+					font-weight: 600;
+					line-height: 1.15;
+					text-align: center;
+					margin: 0 .5rem 1rem;
+					width: 30%;
+					height: 98px;
+					cursor: pointer;
+				}
+				.ce-layout__item--1-column {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='295px' viewBox='0 0 820 295' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -64.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='1-col'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='22' width='820' height='276'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='49.5' width='779' height='222'%3E%3C/rect%3E%3Ctext id='Grid---1-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EGrid - 1 Col%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+				.ce-layout__item--2-column {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='293px' viewBox='0 0 820 293' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -402.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='2-col' transform='translate(0.000000, 338.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='20' width='820' height='276'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='47.5' width='379' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='420.5' y='47.5' width='379' height='222'%3E%3C/rect%3E%3Ctext id='Grid---2-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EGrid - 2 Col%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+				.ce-layout__item--3-column {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='291px' viewBox='0 0 820 291' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -738.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='3-col' transform='translate(0.000000, 674.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='18' width='820' height='276'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='45.5' width='239' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='290.5' y='45.5' width='239' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='560.5' y='45.5' width='239' height='222'%3E%3C/rect%3E%3Ctext id='Grid---3-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EGrid - 3 Col%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+				.ce-layout__item--4-column,
+				.ce-layout__item--14-column {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='297px' viewBox='0 0 820 297' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -1072.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='4-col' transform='translate(0.000000, 1008.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='24' width='820' height='276'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='51.5' width='166' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='221.5' y='51.5' width='166' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='421.5' y='51.5' width='166' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='622.5' y='51.5' width='177' height='222'%3E%3C/rect%3E%3Ctext id='Grid---4-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EGrid - 4 Col%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+	      .ce-layout__item--1-third--2-thirds {
+	      	background-image: url("data:image/svg+xml,%3Csvg width='820px' height='308px' viewBox='0 0 820 308' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -1414.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='OneThirdTwoThirds' transform='translate(0.000000, 1350.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='22' width='820' height='289'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='55.5' width='258' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='301.5' y='55.5' width='497' height='222'%3E%3C/rect%3E%3Ctext id='Grid---4-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EOne Third / Two Thirds%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	      }
+
+				.ce-layout__item--2-third--1-thirds {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='318px' viewBox='0 0 820 318' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -1414.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='Two-Thirds-One-Third' transform='translate(0.000000, 1350.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='22' width='820' height='299'%3E%3C/rect%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='22' width='820' height='299'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='541.5' y='55.5' width='258' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='55.5' width='497' height='222'%3E%3C/rect%3E%3Ctext id='Grid---4-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3ETwo Thirds / One Third%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+				.ce-layout__item--masonry-option-1 {
+					background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='820px' height='544px' viewBox='0 0 820 544' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -1413.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='Masonry-Layout-1' transform='translate(0.000000, 1348.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='21' width='820' height='527'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='42.5' width='779' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='295.5' width='374' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='633.5' y='295.5' width='166' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='425.5' y='295.5' width='177' height='222'%3E%3C/rect%3E%3Ctext id='Grid---4-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EMasonry - Option 1%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+
+				.ce-layout__item--masonry-option-2 {
+					background-image: url("data:image/svg+xml,%3Csvg width='820px' height='564px' viewBox='0 0 820 564' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Board' transform='translate(-90.000000, -2001.000000)'%3E%3Cg id='Group' transform='translate(90.000000, 61.000000)'%3E%3Cg id='Masonry-Layout-1' transform='translate(0.000000, 1936.000000)'%3E%3Crect id='Rectangle' fill='%23D8D8D8' x='0' y='22' width='820' height='546'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='311.5' width='779' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='55.5' width='374' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='20.5' y='55.5' width='374' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='633.5' y='55.5' width='166' height='222'%3E%3C/rect%3E%3Crect id='Rectangle' stroke='%23979797' fill='%23959595' x='425.5' y='55.5' width='177' height='222'%3E%3C/rect%3E%3Ctext id='Grid---4-Col' font-family='AvenirNext-DemiBold, Avenir Next' font-size='16' font-weight='500' fill='%234D4D4D'%3E%3Ctspan x='0' y='16'%3EMasonry - Option 2%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+				}
+				.ce-layout__item.active {
+					/* border: 4px solid white; */
+					box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+				}
+		</style>
+	</head>
+
+    <body>
+			<div id="app">
+				<div class="cf-form-field ce-layout">
+					<div class="ce-layout__item"
+							 :class="[layout.classModifier,{active : currentSelection == layout.validation}]"
+							 v-for="layout in layouts"
+							 v-on:click="selectLayout($event)"
+							 :data-color="layout.validation">
+							{{layout.validation}}
+					</div>
+				</div>
+  		</div>
+
+	<script type="text/javascript">
+	window.contentfulExtension.init( function(api) {
+		api.window.startAutoResizer();
+		new Vue({
+			el: "#app",
+			data () {
+				return {
+					layouts: null,
+					classmodifiers: null,
+					currentSelection: null
+				}
+			},
+			methods: {
+				selectLayout: function(event) {
+					api.field.setValue(event.target.getAttribute('data-color'));
+					this.currentSelection = api.field.getValue()
+				},
+				transformValidations: function(validations) {
+					// take in field validations
+					// transform each item toLowerCase
+					// strip spaces and replace with dashes -
+					const sanitisedValidations = validations.map(item => {
+						return {
+							validation: item,
+							classModifier: `ce-layout__item--${item.replace(/\s+/g, '-').replace(/\//g, '').toLowerCase()}`,
+						}
+					});
+
+					return sanitisedValidations;
+				}
+
+			},
+			mounted() {
+				this.layouts = this.transformValidations(api.field.validations[0].in)
+				this.currentSelection = api.field.getValue();
+			}
+		})
+
+
+
+	});
+
+	</script>
+
+	</body>
+
+</html>

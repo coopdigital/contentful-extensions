@@ -1,0 +1,6 @@
+{
+    "id": "multi-select-category-tier",
+    "name": "Multi-Select Category Tier",
+    "srcdoc": "./index.html",
+    "fieldTypes": ["Object"]
+  }

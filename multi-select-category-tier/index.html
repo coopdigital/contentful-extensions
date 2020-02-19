@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Co-op Contentful Extension - Multi-select category tier</title>
+    <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css" />
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style>
+        .coop--category-multicontrol label {
+            display: inline-block;
+            margin: 5px 10px;
+        }
+    </style>
+</head>
+
+<body class="dynamicSet">
+    <div id="app">
+        <div :class="fieldID">
+            <template>
+                <p v-if="get_AC.length < 1">Select a category above</p>
+                <form class="coop--category-multicontrol" v-else>
+                    <label v-for="(item, index) in set_AC" :key="index" for="item">
+                        <input type="checkbox"
+                            :name="fieldID"
+                            v-bind:value="item"
+                            v-model="checked"
+                            @change="updateData"
+                        />
+                        {{ labelName(item) }}
+                    </label>
+                </form>
+            </template>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.contentfulExtension.init(function (api) {
+          console.log(api)
+            api.window.startAutoResizer();
+            new Vue({
+                el: '#app',
+                data: function () {
+                    return {
+                        categorySetValue: api.entry.fields['category']._fieldLocales['en-GB']._value,
+                        get_AC: [],
+                        set_AC: [],
+                        fieldID: '',
+                        checked: [],
+                        currentSelection: []
+                    };
+                },
+                methods: {
+                  createSets: function (CAT) {
+                    this.set_AC = [];
+                    this.currentSelection = api.field.getValue();
+
+                    this.set_AC = this.get_AC.filter((i) => {
+                      return i.split(':')[0] === CAT
+                    });
+
+                    if (this.currentSelection) {
+                        this.checked = this.currentSelection.filter((i) => {
+                            return i.split(':')[0] === CAT
+                        });
+                    }
+                  },
+                  updateData: function (params) {
+                    api.field.removeValue();
+                    api.field.setValue(this.checked);
+                  },
+                  labelName: function (item) {
+                    return (item.indexOf(':') != -1) ? item.split(':')[1] : item;
+                  }
+                },
+                mounted: function () {
+                  const vm = this;
+                  vm.get_AC = api.field.items.validations[0].in;
+                  if (!vm.categorySetValue) {
+                    vm.set_AC = [];
+                  }
+                  vm.fieldID = api.field['id'];
+                  api.entry.fields['category'].onValueChanged((data) => {
+                      vm.categorySetValue = api.entry.fields['category']._fieldLocales['en-GB']._value;
+                      vm.createSets(data);
+                  });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 {
-    "id": "hero-colour-picker",
-    "name": "Hero Colour Picker",
+    "id": "image-url-extension",
+    "name": "Image URL Extensionr",
     "srcdoc": "./index.html",
     "fieldTypes": ["Object"]
   }

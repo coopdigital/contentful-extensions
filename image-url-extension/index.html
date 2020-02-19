@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Core extensions CSS from Contentful. -->
+  <link rel="stylesheet"
+        href="//contentful.github.io/ui-extensions-sdk/cf-extension.css">
+  <!-- Styles for added / removed text -->
+  <style>
+    .diff-text .added {
+      font-weight: bold;
+      color: #5cb85c;
+    }
+    .diff-text .removed {
+      text-decoration: line-through;
+      font-weight: bold;
+      color: #950B02;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Extension DOM Elements -->
+<div class="cf-form-field" >
+  <input type="text" class="cf-form-input draft-text image-url-input" disabled >
+</div>
+
+<!-- Contenful UI Extensions SDK API -->
+<script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+<!-- Diff Lib -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsdiff/2.2.2/diff.min.js"></script>
+
+<!-- Diffing UI Extension -->
+<script>
+  function imageUrlExtension(extensionsApi) {
+    console.log('ImageUrlExtension', extensionsApi)
+    var imageField = extensionsApi.entry.fields.image;
+    var imageFieldValue = imageField.getValue('en-GB')
+    var ImageUrlInput = document.querySelector('.image-url-input')
+
+    console.log('imageField', imageField, imageField.getValue());
+    console.log('imageFieldValue', imageFieldValue);
+
+
+    if(imageFieldValue) {
+      var imageAssetId = imageFieldValue[0].sys.id;
+      getImageUrlFromId(imageAssetId)
+    }
+
+    imageField.onValueChanged(function(data){
+      if(data) {
+        console.log('data[0].sys.id: ', data[0].sys.id)
+      	getImageUrlFromId(data[0].sys.id)
+      } else {
+        removeImageURLValue()
+      }
+    });
+
+
+    function removeImageURLValue() {
+      extensionsApi.field.removeValue()
+        .then(function(){console.log('removedValue')})
+        .catch(function(err){console.error('ERR', err)})
+
+			//ImageUrlInput.disabled = false
+      ImageUrlInput.value = ''
+    //  ImageUrlInput.disabled = true
+    }
+
+
+    function getImageUrlFromId(imageAssetId) {
+      extensionsApi.space.getAsset(imageAssetId)
+        .then(function(data){
+        	console.log(data)
+        	extensionsApi.field.setValue(data.fields.file['en-GB'].url)
+	        ImageUrlInput.value = data.fields.file['en-GB'].url
+  	     // ImageUrlInput.disabled = true
+      	})
+        .catch(function(error){
+        	console.error("getImageUrlFromId Error: ", error);
+      	})
+    }
+
+    extensionsApi.window.startAutoResizer();
+
+  }
+  window.contentfulExtension.init(imageUrlExtension);
+</script>
+
+</body>
+</html>
